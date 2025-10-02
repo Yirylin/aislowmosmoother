@@ -1,45 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI SlowmoSmoother</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="description" content="AI SlowmoSmoother – Smooth Slow Motion Videos powered by AI. Export in 60 / 120 / 240 fps.">
-  <meta name="keywords" content="slow motion, ai video, frame interpolation, 60fps, 120fps, 240fps, video smoother">
-</head>
-<body>
-  <header>
-    <img src="assets/logo.png" alt="AI SlowmoSmoother Logo" class="logo">
-    <h1>AI SlowmoSmoother</h1>
-    <p>Smooth Slow Motion powered by AI – 60 / 120 / 240 fps</p>
-  </header>
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #0b0c10; /* dark background */
+  color: #edfefe; /* light text */
+  text-align: center;
+}
 
-  <section class="preview">
-    <video autoplay loop muted playsinline>
-      <source src="assets/preview.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-  </section>
+/* Header */
+header {
+  padding: 2rem 1rem;
+}
 
-  <section class="features">
-    <h2>Features</h2>
-    <ul>
-      <li>🎬 Trim videos up to 10 seconds</li>
-      <li>🐢 Slow down up to 0.1× speed</li>
-      <li>⚡ AI-generated frames: 60 / 120 / 240 fps</li>
-      <li>📤 Export in 1K / 2K / 4K resolution</li>
-    </ul>
-  </section>
+.logo {
+  width: 150px;
+  filter: drop-shadow(0 0 10px #edfefe);
+}
 
-  <section class="cta">
-    <h2>Coming Soon</h2>
-    <a href="#" class="btn">📱 App Store</a>
-    <a href="#" class="btn">🤖 Google Play</a>
-  </section>
+h1 {
+  font-size: 2.5rem;
+  color: #edfefe;
+  text-shadow: 0 0 12px #edfefe;
+}
 
-  <footer>
-    <p>© 2025 Kicoop Interactive – All rights reserved</p>
-  </footer>
-</body>
-</html>
+header p {
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+/* Features Section */
+.features {
+  padding: 2rem 1rem;
+}
+
+.features h2 {
+  color: #ffd900;
+  text-shadow: 0 0 12px #ffd900;
+}
+
+.features ul {
+  list-style: none;         /* normale Bullets entfernen */
+  padding-left: 0;
+}
+
+/* Liste zurücksetzen und mittig halten */
+.feature-list{
+  list-style:none;              /* Standard-Bullets aus */
+  padding:0;
+  margin: 0 auto;
+  max-width: 920px;             /* optional: Breite begrenzen */
+}
+
+.feature-list li {
+  display:flex;
+  align-items:center;
+  justify-content: center;   /* Text + Punkt in der Mitte ausrichten */
+  gap:12px;
+  font-size:1.25rem;
+  color:#edfefe;
+  margin:12px 0;
+  padding:0;
+  border-radius:0;
+  background:none;         /* Balken entfernt */
+  box-shadow:none;         /* Schatten entfernt */
+}
+
+
+
+/* Video Preview */
+.preview {
+  margin: 2rem 0;
+}
+
+/* Leuchtender „o“-Ring */
+.dot{
+  width:8px;                   /* Größe anpassen */
+  height:8px;
+  border-radius:50%;
+  background:transparent;
+  border:3px solid currentColor;     /* Ring-Farbe kommt von .yellow/.blue */
+  box-shadow:
+    0 0 10px currentColor,           /* äußerer Glow */
+    inset 0 0 6px currentColor;      /* innerer Glow */
+  flex:0 0 auto;                /* Fixbreite, schrumpft nicht */
+  margin-left:4px;              /* etwas nach innen */
+}
+
+.preview video {
+  max-width: 90%;
+  border: 2px solid #edfefe;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #edfefe55;
+}
+
+/* Call-to-Action Buttons */
+.cta h2 {
+  color: #ffd900;
+  text-shadow: 0 0 12px #ffd900;
+}
+
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 24px;
+  border: 2px solid #edfefe;
+  border-radius: 8px;
+  color: #edfefe;
+  background: transparent;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: #edfefe;
+  color: #0b0c10;
+  box-shadow: 0 0 15px #edfefe;
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #888;
+  border-top: 1px solid #222;
+}
+
+.yellow{ color:#FFD900; }
+.blue{   color:#EDFEFF; }
+
+/* Hover-Effekt für Feature-Liste */
+.feature-list li:hover {
+  color: #ffd900;                 /* Text leuchtet gelb */
+  text-shadow: 0 0 8px #ffd900;   /* Glow-Effekt */
+  transform: translateX(4px);     /* leicht nach rechts „anschieben“ */
+  transition: all 0.25s ease;     /* sanfte Animation */
+}
+
+/* Abstand nach unten vor "Coming Soon" */
+.cta {
+  margin-top: 2.5rem; /* mehr Luft über den Buttons */
+}
