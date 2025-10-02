@@ -39,18 +39,51 @@ header p {
 }
 
 .features ul {
-  list-style: none;
-  padding: 0;
+  list-style: none;         /* normale Bullets entfernen */
+  padding-left: 0;
 }
 
-.features ul li {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
+/* Liste zurücksetzen und mittig halten */
+.feature-list{
+  list-style:none;              /* Standard-Bullets aus */
+  padding:0;
+  margin: 0 auto;
+  max-width: 920px;             /* optional: Breite begrenzen */
 }
+
+.feature-list li {
+  display:flex;
+  align-items:center;
+  justify-content: center;   /* Text + Punkt in der Mitte ausrichten */
+  gap:12px;
+  font-size:1.25rem;
+  color:#edfefe;
+  margin:12px 0;
+  padding:0;
+  border-radius:0;
+  background:none;         /* Balken entfernt */
+  box-shadow:none;         /* Schatten entfernt */
+}
+
+
 
 /* Video Preview */
 .preview {
   margin: 2rem 0;
+}
+
+/* Leuchtender „o“-Ring */
+.dot{
+  width:8px;                   /* Größe anpassen */
+  height:8px;
+  border-radius:50%;
+  background:transparent;
+  border:3px solid currentColor;     /* Ring-Farbe kommt von .yellow/.blue */
+  box-shadow:
+    0 0 10px currentColor,           /* äußerer Glow */
+    inset 0 0 6px currentColor;      /* innerer Glow */
+  flex:0 0 auto;                /* Fixbreite, schrumpft nicht */
+  margin-left:4px;              /* etwas nach innen */
 }
 
 .preview video {
@@ -92,4 +125,20 @@ footer {
   font-size: 0.9rem;
   color: #888;
   border-top: 1px solid #222;
+}
+
+.yellow{ color:#FFD900; }
+.blue{   color:#EDFEFF; }
+
+/* Hover-Effekt für Feature-Liste */
+.feature-list li:hover {
+  color: #ffd900;                 /* Text leuchtet gelb */
+  text-shadow: 0 0 8px #ffd900;   /* Glow-Effekt */
+  transform: translateX(4px);     /* leicht nach rechts „anschieben“ */
+  transition: all 0.25s ease;     /* sanfte Animation */
+}
+
+/* Abstand nach unten vor "Coming Soon" */
+.cta {
+  margin-top: 2.5rem; /* mehr Luft über den Buttons */
 }
