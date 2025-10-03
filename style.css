@@ -1,91 +1,74 @@
-/* Global Styles */
+/* ===========================
+   GLOBAL STYLES
+   =========================== */
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #0b0c10; /* dark background */
-  color: #edfefe; /* light text */
+  color: #edfefe;            /* light text */
   text-align: center;
 }
 
-/* Header */
-header {
-  padding: 2rem 1rem;
+/* Links & allgemeine Textfarben */
+a {
+  color: #ffd900;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
-.logo {
-  width: 150px;
-  filter: drop-shadow(0 0 10px #edfefe);
+/* ===========================
+   TYPOGRAPHY BASE
+   =========================== */
+h1, h2, h3, p {
+  margin: 0;
+  line-height: 1.3;
 }
 
-h1 {
-  font-size: 2.5rem;
+/* Standardgrößen */
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.4rem; }
+p  { font-size: 1.1rem; color: #aaa; }
+
+/* ===========================
+   TYPOGRAPHY VARIANTS
+   =========================== */
+
+/* Headlines */
+.headline-big {
+  font-size: 3rem;
   color: #edfefe;
   text-shadow: 0 0 12px #edfefe;
 }
 
-header p {
-  color: #aaa;
-  font-size: 1.2rem;
+.headline-medium {
+  font-size: 2rem;
+  color: #ffd900;
+  text-shadow: 0 0 10px #ffd900;
 }
 
-/* Features Section */
-.features {
+.headline-small {
+  font-size: 1.2rem;
+  color: #edfefe;
+  opacity: 0.8;
+}
+
+/* ===========================
+   LAYOUT SECTIONS
+   =========================== */
+header {
   padding: 2rem 1rem;
 }
-
-.features h2 {
-  color: #ffd900;
-  text-shadow: 0 0 12px #ffd900;
+header p {
+  font-size: 1.2rem;
+  color: #aaa;
 }
 
-.features ul {
-  list-style: none;         /* normale Bullets entfernen */
-  padding-left: 0;
-}
-
-/* Liste zurücksetzen und mittig halten */
-.feature-list{
-  list-style:none;              /* Standard-Bullets aus */
-  padding:0;
-  margin: 0 auto;
-  max-width: 920px;             /* optional: Breite begrenzen */
-}
-
-.feature-list li {
-  display:flex;
-  align-items:center;
-  justify-content: center;   /* Text + Punkt in der Mitte ausrichten */
-  gap:12px;
-  font-size:1.25rem;
-  color:#edfefe;
-  margin:12px 0;
-  padding:0;
-  border-radius:0;
-  background:none;         /* Balken entfernt */
-  box-shadow:none;         /* Schatten entfernt */
-}
-
-
-
-/* Video Preview */
 .preview {
   margin: 2rem 0;
 }
-
-/* Leuchtender „o“-Ring */
-.dot{
-  width:8px;                   /* Größe anpassen */
-  height:8px;
-  border-radius:50%;
-  background:transparent;
-  border:3px solid currentColor;     /* Ring-Farbe kommt von .yellow/.blue */
-  box-shadow:
-    0 0 10px currentColor,           /* äußerer Glow */
-    inset 0 0 6px currentColor;      /* innerer Glow */
-  flex:0 0 auto;                /* Fixbreite, schrumpft nicht */
-  margin-left:4px;              /* etwas nach innen */
-}
-
 .preview video {
   max-width: 90%;
   border: 2px solid #edfefe;
@@ -93,32 +76,14 @@ header p {
   box-shadow: 0 0 20px #edfefe55;
 }
 
-/* Call-to-Action Buttons */
-.cta h2 {
-  color: #ffd900;
-  text-shadow: 0 0 12px #ffd900;
+.features {
+  padding: 2rem 1rem;
 }
 
-.btn {
-  display: inline-block;
-  margin: 10px;
-  padding: 12px 24px;
-  border: 2px solid #edfefe;
-  border-radius: 8px;
-  color: #edfefe;
-  background: transparent;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: all 0.3s;
+.cta {
+  margin-top: 3rem;
 }
 
-.btn:hover {
-  background: #edfefe;
-  color: #0b0c10;
-  box-shadow: 0 0 15px #edfefe;
-}
-
-/* Footer */
 footer {
   margin-top: 3rem;
   padding: 1rem;
@@ -127,18 +92,130 @@ footer {
   border-top: 1px solid #222;
 }
 
-.yellow{ color:#FFD900; }
-.blue{   color:#EDFEFF; }
-
-/* Hover-Effekt für Feature-Liste */
-.feature-list li:hover {
-  color: #ffd900;                 /* Text leuchtet gelb */
-  text-shadow: 0 0 8px #ffd900;   /* Glow-Effekt */
-  transform: translateX(4px);     /* leicht nach rechts „anschieben“ */
-  transition: all 0.25s ease;     /* sanfte Animation */
+/* ===========================
+   COMPONENTS
+   =========================== */
+.logo {
+  width: 150px;
+  filter: drop-shadow(0 0 10px #edfefe);
 }
 
-/* Abstand nach unten vor "Coming Soon" */
-.cta {
-  margin-top: 2.5rem; /* mehr Luft über den Buttons */
+/* Feature-List */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 920px;
+}
+.feature-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  color: #edfefe;
+  margin: 12px 0;
+}
+
+/* Punkt-Design */
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid currentColor;
+  box-shadow: 0 0 10px currentColor, inset 0 0 6px currentColor;
+}
+.yellow { color: #FFD900; }
+.blue { color: #EDFEFF; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 24px;
+  border: 2px solid #edfefe;
+  border-radius: 8px;
+  color: #edfefe;
+  background: transparent;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+.btn:hover {
+  background: #edfefe;
+  color: #0b0c10;
+  box-shadow: 0 0 15px #edfefe;
+}
+
+/* ===========================
+   UTILITIES & EFFECTS
+   =========================== */
+/* Glow Text */
+.glow-text {
+  color: #ffd900;
+  text-shadow: 0 0 8px #ffd900, 0 0 16px #ffd900;
+}
+
+/* Neon Style */
+.neon {
+  color: #00cfff;
+  text-shadow: 0 0 5px #00cfff, 0 0 10px #00cfff,
+               0 0 20px #00cfff, 0 0 40px #00cfff;
+}
+
+/* Hover Glow */
+.hover-glow:hover {
+  color: #ffd900;
+  text-shadow: 0 0 8px #ffd900;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%   { transform: scale(1);   box-shadow: 0 0 8px #ffd900; }
+  50%  { transform: scale(1.1); box-shadow: 0 0 20px #ffd900; }
+  100% { transform: scale(1);   box-shadow: 0 0 8px #ffd900; }
+}
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Slide-In Effekt */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.slide-in {
+  animation: slideIn 1s ease forwards;
+}
+
+
+.ripple-logo {
+  filter: url(#ripple);
+  width: 400px; /* testweise größer machen, dann erkennt man die Wellen deutlicher */
+}
+
+/* Stage wraps the image so the canvas can overlay it */
+.logo-stage {
+  position: relative;
+  display: inline-block;
+  line-height: 0; /* avoid gaps */
+}
+
+/* Canvas sits exactly on top of the image */
+#rippleCanvas {
+  position: absolute;
+  inset: 0;          /* top/right/bottom/left = 0 */
+  display: none;     /* shown only during the animation */
+  pointer-events: none;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 600px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.4rem; }
+  .feature-list li { font-size: 1rem; gap: 8px; }
+  .btn { font-size: 0.9rem; padding: 10px 16px; }
 }
