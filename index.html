@@ -3,17 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI SlowmoSmoother</title>
+
+  <!-- Titel & Beschreibung -->
+  <title>AI SlowmoSmoother (AISS) – Smooth Slow Motion with AI</title>
+  <meta name="description" content="AI SlowmoSmoother (AISS) – create smooth slow motion videos up to 240fps with AI frame interpolation. Export in 1K/2K/4K.">
+  <meta name="keywords" content="AI SlowmoSmoother, slow motion, ai video, frame interpolation, 60fps, 120fps, 240fps, video smoother, AISS">
+
+  <!-- Open Graph für Social Media -->
+  <meta property="og:title" content="AI SlowmoSmoother (AISS)">
+  <meta property="og:description" content="Smooth Slow Motion Videos powered by AI – export in 60/120/240fps.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yirylin.github.io/aislowmosmoother">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI SlowmoSmoother (AISS)">
+  <meta name="twitter:description" content="Create smooth slow motion videos up to 240fps with AI frame interpolation.">
+  <meta name="twitter:image" content="assets/logo.png">
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
-  <meta name="description" content="AI SlowmoSmoother – Smooth Slow Motion Videos powered by AI. Export in 60 / 120 / 240 fps.">
-  <meta name="keywords" content="slow motion, ai video, frame interpolation, 60fps, 120fps, 240fps, video smoother">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
 </head>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const img = document.getElementById('logoImg');
+  const canvas = document.getElementById('rippleCanvas');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+  function runRipple(offset = 0, amp = 8) {
+    const scale = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+    const w = Math.round(img.clientWidth);
+    const h = Math.round(img.clientHeight);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    canvas.width = Math.max(1, Math.floor(w * scale));
+    canvas.height = Math.max(1, Math.floor(h * scale));
+
+    // Offscreen Buffer mit dem bereits geladenen img
+    const off = document.createElement('canvas');
+    off.width = canvas.width;
+    off.height = canvas.height;
+    const octx = off.getContext('2d', { willReadFrequently: true });
+    octx.imageSmoothingEnabled = true;
+    octx.drawImage(img, 0, 0, off.width, off.height);
+
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const maxR = Math.hypot(cx, cy);
+    const band = Math.max(10 * scale, 14);
+    const duration = 4000; // 4s
+    const start = performance.now() + offset;
+
+    if (canvas.style.display !== 'block') {
+      img.style.visibility = 'hidden';
+      canvas.style.display = 'block';
+    }
+
+    function frame(now) {
+      if (now < start) {
+        requestAnimationFrame(frame);
+        return;
+      }
+      const t = Math.min(1, (now - start) / duration);
+      const ease = 1 - Math.pow(1 - t, 3);
+      const r = 4 + ease * maxR;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(off, 0, 0);
+
+      const srcData = octx.getImageData(0, 0, off.width, off.height);
+      const spx = srcData.data;
+      const rowW = canvas.width;
+
+      const rOuter = r + band;
+      const rInner = Math.max(0, r - band);
+      const yMin = Math.max(0, Math.floor(cy - rOuter - 1));
+      const yMax = Math.min(canvas.height - 1, Math.ceil(cy + rOuter + 1));
+
+      const dstData = ctx.getImageData(0, yMin, canvas.width, yMax - yMin + 1);
+      const dpx = dstData.data;
+
+      for (let y = yMin; y <= yMax; y++) {
+        const dy = y - cy;
+        if (Math.abs(dy) > rOuter) continue;
+        const xSpanOuter = Math.sqrt(Math.max(0, rOuter * rOuter - dy * dy));
+        const xSpanInner = (Math.abs(dy) < rInner) ? Math.sqrt(Math.max(0, rInner * rInner - dy * dy)) : 0;
+        const xStart = Math.max(0, Math.floor(cx - xSpanOuter));
+        const xEnd   = Math.min(canvas.width - 1, Math.ceil(cx + xSpanOuter));
+
+        for (let x = xStart; x <= xEnd; x++) {
+          const dx = x - cx;
+          const d = Math.hypot(dx, dy);
+          if (d < rInner || d > rOuter) continue;
+
+          const bandPos = 1 - Math.abs(d - r) / band;
+          const ux = dx / (d || 1);
+          const uy = dy / (d || 1);
+          const disp = amp * bandPos;
+
+          let sx = Math.round(x + ux * disp);
+          let sy = Math.round(y + uy * disp);
+          if (sx < 0) sx = 0; if (sx >= canvas.width) sx = canvas.width - 1;
+          if (sy < 0) sy = 0; if (sy >= canvas.height) sy = canvas.height - 1;
+
+          const si = (sy * rowW + sx) * 4;
+          const di = ((y - yMin) * rowW + x) * 4;
+          dpx[di    ] = spx[si    ];
+          dpx[di + 1] = spx[si + 1];
+          dpx[di + 2] = spx[si + 2];
+          dpx[di + 3] = spx[si + 3];
+        }
+      }
+
+      ctx.putImageData(dstData, 0, yMin);
+
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else if (offset > 0 && offset >= 4000) {
+        // Wenn letzter Ripple fertig ist
+        canvas.style.display = 'none';
+        img.style.visibility = 'visible';
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  // Standard: 1 Ripple sofort
+  if (img.complete) runRipple();
+  else img.addEventListener('load', () => runRipple());
+
+  // Optional: drei Wellen nacheinander
+  window.tripleRipple = function() {
+    runRipple(0, 8);
+    runRipple(1500, 7);
+    runRipple(3000, 6);
+  };
+});
+</script>
+
+
 <body>
   <header>
-    <img src="assets/logo.png" alt="AI SlowmoSmoother Logo" class="logo">
+    <div class="logo-stage">
+      <img id="logoImg" src="assets/logo.png" alt="AI SlowmoSmoother Logo" class="logo">
+      <canvas id="rippleCanvas"></canvas>
+    </div>
     <h1>AI SlowmoSmoother (AISS)</h1>
     <p>Smooth Slow Motion powered by AI – 60 / 120 / 240 fps</p>
   </header>
+
+<!-- SVG Filter für Ripple Ring -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="ripple" x="0" y="0" width="100%" height="100%">
+      <!-- Ein Kreis als Maske -->
+      <feImage result="ring" x="0" y="0" width="800" height="800"
+        preserveAspectRatio="xMidYMid slice"
+        xlink:href="data:image/svg+xml;utf8,
+          <svg xmlns='http://www.w3.org/2000/svg' width='800' height='800'>
+            <circle cx='400' cy='400' r='20' fill='white'>
+              <animate attributeName='r' from='20' to='600' dur='5s' begin='0s' fill='freeze'/>
+            </circle>
+          </svg>"/>
+      
+      <!-- Wende die Maske als displacement an -->
+      <feDisplacementMap in="SourceGraphic" in2="ring" scale="100"/>
+    </filter>
+  </defs>
+</svg>
 
   <section class="preview">
     <video autoplay loop muted playsinline>
@@ -22,15 +185,15 @@
     </video>
   </section>
 
-<section class="features">
-  <h2>Features</h2>
-  <ul class="feature-list">
-    <li><span class="dot yellow"></span> Trim videos up to 10 seconds</li>
-    <li><span class="dot blue"></span> Slow down up to 0.1× speed</li>
-    <li><span class="dot yellow"></span> AI-generated frames: 60 / 120 / 240 fps</li>
-    <li><span class="dot blue"></span> Export in 1K / 2K / 4K resolution</li>
-  </ul>
-</section>
+  <section class="features">
+    <h2>Features</h2>
+    <ul class="feature-list">
+      <li><span class="dot yellow"></span> Trim videos up to 10 seconds</li>
+      <li><span class="dot blue"></span> Slow down up to 0.1× speed</li>
+      <li><span class="dot yellow"></span> AI-generated frames: 60 / 120 / 240 fps</li>
+      <li><span class="dot blue"></span> Export in 1K / 2K / 4K resolution</li>
+    </ul>
+  </section>
 
   <section class="cta">
     <h2>Coming Soon</h2>
