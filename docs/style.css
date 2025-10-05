@@ -358,6 +358,20 @@ footer {
     font-size: 1.6rem;
   }
 
+/* Fix: Dots align left on mobile again */
+@media (max-width: 900px) {
+  .feature-list li {
+    flex-direction: row;         /* Punkte wieder nebeneinander mit Text */
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .dot {
+    margin-right: 10px;          /* Abstand zwischen Punkt und Text */
+    margin-left: 0;
+  }
+}
+
   .feature-list li {
     font-size: 0.9rem;
   }
@@ -370,3 +384,4 @@ footer {
     font-size: 0.9rem;
   }
 }
+
