@@ -92,4 +92,69 @@ Farbtools: https://coolors.co/
   margin-left: 0;
 }
 
+/* Privacy Policy Section */
+.privacy {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+  line-height: 1.7;
+  color: #edfefe;
+}
+
+.privacy h1, .privacy h2 {
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 12px #fff;
+}
+
+.privacy h3 {
+  color: #ffd900;
+  margin-top: 2rem;
+  text-shadow: 0 0 6px #ffd90066;
+}
+
+.privacy ul {
+  list-style: none; /* Standardpunkte aus */
+  padding-left: 0;
+}
+
+.privacy li {
+  position: relative;
+  padding-left: 22px; /* Platz für Punkt links vom Text */
+  margin: 6px 0;
+}
+
+.privacy li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #edfefe;
+  box-shadow: 0 0 10px #edfefe, 0 0 20px #edfefe;
+}
+
+/*switcher even odd*/
+.privacy li:nth-child(odd)::before {
+  background: #ffd900;
+  box-shadow: 0 0 10px #ffd900, 0 0 20px #ffd900;
+}
+
+.privacy li:nth-child(even)::before {
+  background: #edfefe;
+  box-shadow: 0 0 10px #edfefe, 0 0 20px #edfefe;
+}
+
+
+.privacy hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 1.5rem 0;
+}
+
+## Own Dots
+
 © 2025 Kicoop Interactive — Created with Resonance ✨
