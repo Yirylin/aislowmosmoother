@@ -32,8 +32,7 @@ h2 { font-size: 1.8rem; }
 h3 { font-size: 1.4rem; }
 p  { font-size: 1.1rem; color: #aaa; }
 p1 { font-size: 1.1rem; color: #edfefe; }
-
-
+p2 { font-size: 1.0rem; color: #aaa; }
 /* ===========================
    TYPOGRAPHY VARIANTS
    =========================== */
@@ -226,7 +225,7 @@ footer {
 
 .privacy-intro {
   text-align: center;
-  margin: 30px auto;
+  margin: 0px auto;
   max-width: 600px;  /* begrenzt die Zeilenbreite */
   line-height: 1.6;  /* bessere Lesbarkeit */
   color: #edfefe;
