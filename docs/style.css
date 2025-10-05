@@ -285,3 +285,88 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.2);
   margin: 1.5rem 0;
 }
+
+/* ===========================
+   Responsive Layout (Mobile)
+   =========================== */
+@media (max-width: 900px) {
+  body {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  header {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .logo {
+    width: 110px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .feature-list {
+    max-width: 95%;
+  }
+
+  .feature-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 1rem;
+    padding: 8px 12px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+  }
+
+  .preview video {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  .cta h2 {
+    font-size: 1.4rem;
+  }
+
+  .btn {
+    width: 90%;
+    font-size: 0.95rem;
+    padding: 10px 0;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Extra small devices (phones in portrait) */
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .feature-list li {
+    font-size: 0.9rem;
+  }
+
+  .cta h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}
